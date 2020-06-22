@@ -29,7 +29,14 @@ public class EmployeeServlet216 extends HttpServlet {
     	int currentPage = 1;
     	int pageSize = 10;
     	try {
-    	currentPage = Integer.parseInt(request.getParameter("currentPage"));
+    		String curPage = request.getParameter("currentPage");
+    		if(null!=curPage) {
+    			currentPage = Integer.parseInt(curPage);
+    		}
+    		String pageSizes = request.getParameter("pageSize");
+    		if(null!=pageSizes) {
+    			pageSize = Integer.parseInt(pageSizes);
+    		}
     	System.out.println("当前第"+currentPage+"页，每页"+pageSize+"条");
     	}catch(Exception e){
     	}
@@ -48,6 +55,41 @@ public class EmployeeServlet216 extends HttpServlet {
     	}
     
     
+    protected void queryByKeyWords(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	int currentPage = 1;
+    	int pageSize = 10;
+    	String keyWords="";
+    	try {
+    		keyWords = request.getParameter("kw");
+    	String curPage = request.getParameter("currentPage");
+    	if(null!=curPage) {
+    		currentPage = Integer.parseInt(curPage);
+    	}
+    	String pageSizes = request.getParameter("pageSize");
+    	if(null!=pageSizes) {
+    		pageSize = Integer.parseInt(pageSizes);
+    	}
+    	
+    	}catch(Exception e){
+    	}
+    	
+    	try {
+    		int totalNum = ies.findTotalNum();
+    		PageUtils216<Employee216> pu = new PageUtils216<Employee216>(currentPage, pageSize, totalNum);
+    		Employee216 emp = new Employee216();
+    		emp.setName(keyWords);
+    		emp.setSex(keyWords);
+    		emp.setPhone(keyWords);
+    		List<Employee216> list = ies.queryByName(emp,pu.getCurrentPage(), pu.getPageSize());
+    		pu.setList(list);
+    		request.setAttribute("pageBean", pu);
+    		request.getRequestDispatcher("employeelist.jsp").forward(request, response);
+    		
+    	}catch (Exception e) {
+    		e.printStackTrace();
+		}
+    	}
+    
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		  //查询显示所有雇员信息
@@ -64,6 +106,10 @@ public class EmployeeServlet216 extends HttpServlet {
         	queryByID(request, response);
         }else if("findByPage".equals(action)) {
         	findByPage(request,response);
+        }else if("queryByKeyWords".equals(action)) {
+        	queryByKeyWords(request,response);
+        }else if("deleteAll".equals(action)) {
+			deleteAll(request,response);
         }
         
 	}
@@ -112,6 +158,30 @@ public class EmployeeServlet216 extends HttpServlet {
 			e1.printStackTrace();
 		}
 	}
+	
+	
+	private void deleteAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String checkId = request.getParameter("checkId");
+		String[] str = checkId.split(",");
+		int[] ids = new int[str.length-1];
+		if(str.length-1>0) {
+			for(int i =0;i<str.length-1;i++) {
+				ids[i]=Integer.parseInt(str[i+1]);
+			}
+		}
+		Employee216 emp = new Employee216();
+		for(int id:ids) {
+			emp.setEid(id);
+			try {
+				ies.delete(emp);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		findByPage(request, response);
+	
+	}
+	
 	
 	private void queryAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {

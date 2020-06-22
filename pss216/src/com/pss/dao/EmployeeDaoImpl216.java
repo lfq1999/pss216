@@ -53,10 +53,10 @@ public class EmployeeDaoImpl216 implements IEmployeeDao216 {
 	}
 
 	@Override
-	public List<Employee216> queryByName(Employee216 e) throws SQLException {
-		String sql = "select * from t_employee where name like ? or sex like ? or phone like ?";
+	public List<Employee216> queryByName(Employee216 e,int currentPage,int pageSize) throws SQLException {
+		String sql = "select * from t_employee where name like ? or sex like ? or phone like ? limit ?,?";
 		List<Employee216> list = qr.query(DBUtils216.getConnection(), sql,
-				new BeanListHandler<Employee216>(Employee216.class), "%" + e.getName() + "%","%" + e.getSex() + "%","%" + e.getPhone() + "%");
+				new BeanListHandler<Employee216>(Employee216.class), "%" + e.getName() + "%","%" + e.getSex() + "%","%" + e.getPhone() + "%",(currentPage-1)*pageSize,pageSize);
 		return list;
 	}
 

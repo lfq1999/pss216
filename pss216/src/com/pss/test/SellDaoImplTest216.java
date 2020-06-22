@@ -115,7 +115,7 @@ class SellDaoImplTest216 {
 	void testQueryByEmployeeName() throws SQLException {
 		Employee216 e = new Employee216();
 		e.setName("周");
-		List<Employee216> list = ied.queryByName(e);
+		List<Employee216> list = ied.queryByName(e,1,10);
 		Sell216 sell = new Sell216();
 		for(Employee216 emp:list) {
 			sell.setEid(emp.getEid());

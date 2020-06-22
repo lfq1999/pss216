@@ -42,8 +42,8 @@ IEmployeeDao216 ied = new EmployeeDaoImpl216();
 	}
 
 	@Override
-	public List<Employee216> queryByName(Employee216 e) throws SQLException {
-		return ied.queryByName(e);
+	public List<Employee216> queryByName(Employee216 e,int currentPage,int pageSize) throws SQLException {
+		return ied.queryByName(e,currentPage,pageSize);
 	}
 
 	@Override

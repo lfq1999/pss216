@@ -22,7 +22,7 @@ public interface IEmployeeService216 {
 	public Employee216 queryByID(Employee216 e) throws SQLException;
 
 	// 根据雇员名称查找商品的方法
-	public List<Employee216> queryByName(Employee216 e) throws SQLException;
+	public List<Employee216> queryByName(Employee216 e,int currentPage,int pageSize) throws SQLException;
 	//计算总的记录数的方法
 	public int findTotalNum() throws SQLException;
 	

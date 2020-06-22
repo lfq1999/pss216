@@ -53,7 +53,7 @@ public class TestEmployeeDaoImpl216 {
 //		}
 		
 		//模糊查询——电话
-		List<Employee216> list = ied.queryByName(new Employee216(0,"15269878534","15269878534","2000-02-26","15269878534",1));
+		List<Employee216> list = ied.queryByName(new Employee216(0,"15269878534","15269878534","2000-02-26","15269878534",1),1,10);
 		for(Employee216 e:list) {
 			System.out.println(e);
 		}
