@@ -20,7 +20,7 @@ public class TestProductDaoImpl216 {
 //			System.out.println(p);
 //		}
 //		
-		List<Product216> list1 = pd.queryByName(new Product216(4, "小米", 3299, 1024, 1));
+		List<Product216> list1 = pd.queryByName(new Product216(4, "小米", 3299, 1024, 1),1,10);
 		for (Product216 p : list1) {
 			System.out.println(p);
 		}

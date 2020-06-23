@@ -62,7 +62,7 @@ class SellDaoImplTest216 {
 
 	@Test
 	void testQueryByName() throws SQLException {
-		List<Sell216> list = isd.queryByName(new Sell216("2018",0,0,1,"",1));
+		List<Sell216> list = isd.queryByName(new Sell216("2018",0,0,1,"",1),1,10);
 		Assert.assertEquals(6, list.size());
 		for(Sell216 s:list) {
 			System.out.println(s);
@@ -100,11 +100,11 @@ class SellDaoImplTest216 {
 	void testQueryByProductName() throws SQLException {
 		Product216 p = new Product216();
 		p.setName("华");
-		List<Product216> list = ipd.queryByName(p);
+		List<Product216> list = ipd.queryByName(p,1,10);
 		Sell216 sell = new Sell216();
 		for(Product216 pro:list) {
 			sell.setPid(pro.getPid());
-			List<Sell216> sList = isd.queryByProductName(sell);
+			List<Sell216> sList = isd.queryByProductName(sell,1,10);
 			for(Sell216 s:sList) {
 				System.out.println(s);
 			}
@@ -119,7 +119,7 @@ class SellDaoImplTest216 {
 		Sell216 sell = new Sell216();
 		for(Employee216 emp:list) {
 			sell.setEid(emp.getEid());
-			List<Sell216> sList = isd.queryByEmployeeName(sell);
+			List<Sell216> sList = isd.queryByEmployeeName(sell,1,10);
 			for(Sell216 s:sList) {
 				System.out.println(s);
 			}

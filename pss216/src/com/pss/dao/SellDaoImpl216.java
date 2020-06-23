@@ -55,10 +55,10 @@ public class SellDaoImpl216 implements ISellDao216 {
 	}
 
 	@Override
-	public List<Sell216> queryByName(Sell216 s) throws SQLException {
-		String sql = "select * from t_sell where sid like ?";
+	public List<Sell216> queryByName(Sell216 s,int currentPage,int pageSize) throws SQLException {
+		String sql = "select * from t_sell where sid like ? limit ?,?";
 		List<Sell216> list = qr.query(DBUtils216.getConnection(), sql,
-				new BeanListHandler<Sell216>(Sell216.class), "%" + s.getSid() + "%");
+				new BeanListHandler<Sell216>(Sell216.class), "%" + s.getSid() + "%",(currentPage-1)*pageSize,pageSize);
 		return list;
 	}
 
@@ -77,19 +77,20 @@ public class SellDaoImpl216 implements ISellDao216 {
 	}
 
 	@Override
-	public List<Sell216> queryByProductName(Sell216 s) throws SQLException {
-		String sql = "select * from t_sell where pid like ?";
+	public List<Sell216> queryByProductName(Sell216 s,int currentPage,int pageSize) throws SQLException {
+		String sql = "select * from t_sell where pid like ? limit ?,?";
 		List<Sell216> list = qr.query(DBUtils216.getConnection(), sql,
-				new BeanListHandler<Sell216>(Sell216.class), "%" + s.getPid() + "%");
+				new BeanListHandler<Sell216>(Sell216.class), "%" + s.getPid() + "%",(currentPage-1)*pageSize,pageSize);
 		return list;
 	}
 
 	@Override
-	public List<Sell216> queryByEmployeeName(Sell216 s) throws SQLException {
-		String sql = "select * from t_sell where eid like ?";
+	public List<Sell216> queryByEmployeeName(Sell216 s,int currentPage,int pageSize) throws SQLException {
+		String sql = "select * from t_sell where eid like ? limit ?,?";
 		List<Sell216> list = qr.query(DBUtils216.getConnection(), sql,
-				new BeanListHandler<Sell216>(Sell216.class), "%" + s.getEid() + "%");
+				new BeanListHandler<Sell216>(Sell216.class), "%" + s.getEid() + "%",(currentPage-1)*pageSize,pageSize);
 		return list;
 	}
+
 
 }

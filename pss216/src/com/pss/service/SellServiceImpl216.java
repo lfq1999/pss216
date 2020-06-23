@@ -38,8 +38,8 @@ public class SellServiceImpl216 implements ISellService216 {
 	}
 
 	@Override
-	public List<Sell216> queryByName(Sell216 s) throws SQLException {
-		return isd.queryByName(s);
+	public List<Sell216> queryByName(Sell216 s,int currentPage, int pageSize) throws SQLException {
+		return isd.queryByName(s,currentPage,pageSize);
 	}
 
 	@Override
@@ -53,13 +53,13 @@ public class SellServiceImpl216 implements ISellService216 {
 	}
 
 	@Override
-	public List<Sell216> queryByProductName(Sell216 s) throws SQLException {
-		return isd.queryByProductName(s);
+	public List<Sell216> queryByProductName(Sell216 s,int currentPage, int pageSize) throws SQLException {
+		return isd.queryByProductName(s,currentPage,pageSize);
 	}
 
 	@Override
-	public List<Sell216> queryByEmployeeName(Sell216 s) throws SQLException {
-		return isd.queryByEmployeeName(s);
+	public List<Sell216> queryByEmployeeName(Sell216 s,int currentPage, int pageSize) throws SQLException {
+		return isd.queryByEmployeeName(s,currentPage,pageSize);
 	}
 
 }

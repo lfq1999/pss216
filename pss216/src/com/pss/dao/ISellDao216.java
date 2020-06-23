@@ -17,11 +17,11 @@ public interface ISellDao216 {
 			// 根据销售单编号查找商品的方法
 			public Sell216 queryByID(Sell216 s) throws SQLException;
 			// 根据模糊查询查找商品的方法
-			public List<Sell216> queryByName(Sell216 s) throws SQLException;
+			public List<Sell216> queryByName(Sell216 s,int currentPage,int pageSize) throws SQLException;
 			// 根据产品名称模糊查询查找商品的方法
-			public List<Sell216> queryByProductName(Sell216 s) throws SQLException;
+			public List<Sell216> queryByProductName(Sell216 s,int currentPage,int pageSize) throws SQLException;
 			// 根据雇员名称模糊查询查找商品的方法
-			public List<Sell216> queryByEmployeeName(Sell216 s) throws SQLException;		
+			public List<Sell216> queryByEmployeeName(Sell216 s,int currentPage,int pageSize) throws SQLException;		
 			//计算总的记录数的方法
 			public int findTotalNum() throws SQLException;
 			//分页

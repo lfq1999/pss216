@@ -10,18 +10,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.pss.po.Employee216;
-import com.pss.service.EmployeeServiceImpl216;
-import com.pss.service.IEmployeeService216;
+import com.pss.po.Product216;
+import com.pss.service.IProductService216;
+import com.pss.service.ProductServiceImpl216;
 import com.pss.util.PageUtils216;
 
 
-@WebServlet(urlPatterns ="/employeeServlet",name="EmployeeServlet216") 
-public class EmployeeServlet216 extends HttpServlet {
+@WebServlet(urlPatterns ="/productServlet",name="ProductServlet216") 
+public class ProductServlet216 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     IEmployeeService216 ies =new EmployeeServiceImpl216();
+     IProductService216 ips =new ProductServiceImpl216();
 
-    public EmployeeServlet216() {
+    public ProductServlet216() {
         super();
     }
     
@@ -42,12 +42,12 @@ public class EmployeeServlet216 extends HttpServlet {
     	}
     	
     	try {
-    		int totalNum = ies.findTotalNum();
-    		PageUtils216<Employee216> pu = new PageUtils216<Employee216>(currentPage, pageSize, totalNum);
-    		List<Employee216> list = ies.findByPage(pu.getCurrentPage(), pu.getPageSize());
+    		int totalNum = ips.findTotalNum();
+    		PageUtils216<Product216> pu = new PageUtils216<Product216>(currentPage, pageSize, totalNum);
+    		List<Product216> list = ips.findByPage(pu.getCurrentPage(), pu.getPageSize());
     		pu.setList(list);
     		request.setAttribute("pageBean", pu);
-    		request.getRequestDispatcher("employeelist.jsp").forward(request, response);
+    		request.getRequestDispatcher("productlist.jsp").forward(request, response);
     		
     	}catch (Exception e) {
     		e.printStackTrace();
@@ -74,16 +74,16 @@ public class EmployeeServlet216 extends HttpServlet {
     	}
     	
     	try {
-    		int totalNum = ies.findTotalNum();
-    		PageUtils216<Employee216> pu = new PageUtils216<Employee216>(currentPage, pageSize, totalNum);
-    		Employee216 emp = new Employee216();
-    		emp.setName(keyWords);
-    		emp.setSex(keyWords);
-    		emp.setPhone(keyWords);
-    		List<Employee216> list = ies.queryByName(emp,pu.getCurrentPage(), pu.getPageSize());
+    		int totalNum = ips.findTotalNum();
+    		PageUtils216<Product216> pu = new PageUtils216<Product216>(currentPage, pageSize, totalNum);
+    		Product216 pro = new Product216();
+    		
+    		System.out.println(keyWords);
+    		pro.setName(keyWords);
+    		List<Product216> list = ips.queryByName(pro,pu.getCurrentPage(), pu.getPageSize());
     		pu.setList(list);
     		request.setAttribute("pageBean", pu);
-    		request.getRequestDispatcher("employeelist.jsp").forward(request, response);
+    		request.getRequestDispatcher("productlist.jsp").forward(request, response);
     		
     	}catch (Exception e) {
     		e.printStackTrace();
@@ -120,12 +120,11 @@ public class EmployeeServlet216 extends HttpServlet {
 	
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
-		String sex = request.getParameter("sex");
-		String birthday = request.getParameter("birthday");
-		String phone = request.getParameter("phone");
-		Employee216 e = new Employee216(0,name,sex,birthday,phone,1);
+		String price = request.getParameter("price");
+		String store = request.getParameter("store");
+		Product216 pro = new Product216(0,name,Float.parseFloat(price),Integer.parseInt(store),1);
 		try {
-			ies.add(e);
+			ips.add(pro);
 			findByPage(request,response);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -133,14 +132,13 @@ public class EmployeeServlet216 extends HttpServlet {
 	}
 	
 	private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String eid = request.getParameter("eid");
+		String pid = request.getParameter("pid");
 		String name = request.getParameter("name");
-		String sex = request.getParameter("sex");
-		String birthday = request.getParameter("birthday");
-		String phone = request.getParameter("phone");
-		Employee216 e = new Employee216(Integer.parseInt(eid),name,sex,birthday,phone,1);
+		String price = request.getParameter("price");
+		String store = request.getParameter("store");
+		Product216 pro = new Product216(Integer.parseInt(pid),name,Float.parseFloat(price),Integer.parseInt(store),1);
 		try {
-			ies.update(e);
+			ips.update(pro);
 			findByPage(request,response);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -148,11 +146,11 @@ public class EmployeeServlet216 extends HttpServlet {
 	}
 	
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String eid = request.getParameter("eid");
-		Employee216 emp = new Employee216();
-		emp.setEid(Integer.parseInt(eid));
+		String pid = request.getParameter("pid");
+		Product216 pro = new Product216();
+		pro.setPid(Integer.parseInt(pid));
 		try {
-			ies.delete(emp);
+			ips.delete(pro);
 			findByPage(request,response);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -169,11 +167,11 @@ public class EmployeeServlet216 extends HttpServlet {
 				ids[i]=Integer.parseInt(str[i]);
 			}
 		}
-		Employee216 emp = new Employee216();
+		Product216 pro = new Product216();
 		for(int id:ids) {
-			emp.setEid(id);
+			pro.setPid(id);
 			try {
-				ies.delete(emp);
+				ips.delete(pro);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -185,22 +183,22 @@ public class EmployeeServlet216 extends HttpServlet {
 	
 	private void queryAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			List<Employee216> elist = ies.queryAll();
-			request.setAttribute("list", elist);
-			request.getRequestDispatcher("employeelist.jsp").forward(request, response);
+			List<Product216> plist = ips.queryAll();
+			request.setAttribute("list", plist);
+			request.getRequestDispatcher("productlist.jsp").forward(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	private void queryByID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String eid = request.getParameter("eid");
-		Employee216 e = new Employee216();
-		e.setEid(Integer.parseInt(eid));
+		String pid = request.getParameter("pid");
+		Product216 p = new Product216();
+		p.setPid(Integer.parseInt(pid));
 		try {
-			Employee216 emp = ies.queryByID(e);
-			request.setAttribute("emp", emp);
-			request.getRequestDispatcher("updateEmployee.jsp").forward(request, response);
+			Product216 pro = ips.queryByID(p);
+			request.setAttribute("pro", pro);
+			request.getRequestDispatcher("updateProduct.jsp").forward(request, response);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}

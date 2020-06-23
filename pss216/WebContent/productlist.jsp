@@ -59,7 +59,7 @@
 			$("input[type='checkbox']:checked").each(function (i){
 				checkId[i]=$(this).val();
 			})
-			window.location.href="employeeServlet?action=deleteAll&checkId="+checkId;
+			window.location.href="productServlet?action=deleteAll&checkId="+checkId;
 		}else{
 			alert("请选择你要删除的信息");
 		}
@@ -74,14 +74,14 @@ table{
 	width:600px;
 	border-collapse:collapse;
 }
-#addemp{
+#addpro{
 	position:relative;
 	width:600px;
 	height:30px;
 	top:0px;
 	right:165px;
 }
-#addemp p{
+#addpro p{
 	padding-top:5px;
 	padding-left:100px;
 }
@@ -97,17 +97,17 @@ a{
 </head>
 <body>
 <div align="center">
-<form action="employeeServlet?action=queryByKeyWords" method="post">
-<font size="5">销售员管理</font>
-<div id="addemp"><input type="text" name="kw"/>&nbsp;<input type="submit" value="搜索">
-&nbsp;&nbsp;<a href="addEmployee.jsp"><input type="button" value="新增"></a></div>
+<form action="productServlet?action=queryByKeyWords" method="post">
+<font size="5">商品管理</font>
+<div id="addpro"><input type="text" name="kw"/>&nbsp;<input type="submit" value="搜索">
+&nbsp;&nbsp;<a href="addProduct.jsp"><input type="button" value="新增"></a></div>
 <table>
-<tr><td><input id="checkall" name="checkall" type="checkbox" onclick="checkAll(checkall)">全选</td><td>员工编号</td><td>姓名</td><td>性别</td><td>出生日期</td><td>电话</td><td>操作</td></tr>
-<c:forEach items="${pageBean.list}" var="emp">
-<tr><td><input  name="info" type="checkbox" value="${emp.eid}"></td><td>${emp.eid}</td><td>${emp.name}</td><td>${emp.sex}</td>
-<td>${emp.birthday}</td><td>${emp.phone}</td>
-<td><a href="employeeServlet?action=queryByID&eid=${emp.eid }">编辑</a>&nbsp;&nbsp;
-<a href="employeeServlet?action=delete&eid=${emp.eid }" onclick="return confirm('您确定要删除吗？');">删除</a></td>
+<tr><td><input id="checkall" name="checkall" type="checkbox" onclick="checkAll(checkall)">全选</td><td>商品编号</td><td>商品名称</td><td>商品价格</td><td>储量</td><td>操作</td></tr>
+<c:forEach items="${pageBean.list}" var="pro">
+<tr><td><input  name="info" type="checkbox" value="${pro.pid}"></td><td>${pro.pid}</td><td>${pro.name}</td><td>${pro.price}</td>
+<td>${pro.store}</td>
+<td><a href="productServlet?action=queryByID&pid=${pro.pid }">编辑</a>&nbsp;&nbsp;
+<a href="productServlet?action=delete&pid=${pro.pid }" onclick="return confirm('您确定要删除吗？');">删除</a></td>
 </tr>
 </c:forEach>
 </table>
@@ -116,16 +116,16 @@ a{
 </div>
 <br>
 第${pageBean.currentPage}页 共${pageBean.totalPage}页&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="employeeServlet?action=findByPage&currentPage=1">首页</a>&nbsp;&nbsp;&nbsp;&nbsp; 
-<a href="employeeServlet?action=findByPage&currentPage=${pageBean.currentPage-1}">上一页 </a>&nbsp;&nbsp;&nbsp;&nbsp; 
-<a href="employeeServlet?action=findByPage&currentPage=${pageBean.currentPage+1}">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="employeeServlet?action=findByPage&currentPage=${pageBean.totalPage}">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="productServlet?action=findByPage&currentPage=1">首页</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+<a href="productServlet?action=findByPage&currentPage=${pageBean.currentPage-1}">上一页 </a>&nbsp;&nbsp;&nbsp;&nbsp; 
+<a href="productServlet?action=findByPage&currentPage=${pageBean.currentPage+1}">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="productServlet?action=findByPage&currentPage=${pageBean.totalPage}">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
 每页显示
 <select name="pageSize" onchange="window.location=this.value;">
-<option value="employeeServlet?action=findByPage&currentPage=${pageBean.currentPage}&pageSize=5">5</option>
-<option value="employeeServlet?action=findByPage&currentPage=${pageBean.currentPage}&pageSize=10">10</option>
-<option value="employeeServlet?action=findByPage&currentPage=${pageBean.currentPage}&pageSize=20">20</option>
-<option value="employeeServlet?action=findByPage&currentPage=${pageBean.currentPage}&pageSize=50">50</option>
+<option value="productServlet?action=findByPage&currentPage=${pageBean.currentPage}&pageSize=5">5</option>
+<option value="productServlet?action=findByPage&currentPage=${pageBean.currentPage}&pageSize=10">10</option>
+<option value="productServlet?action=findByPage&currentPage=${pageBean.currentPage}&pageSize=20">20</option>
+<option value="productServlet?action=findByPage&currentPage=${pageBean.currentPage}&pageSize=50">50</option>
 </select>条;
 </form>
 </div>

@@ -39,9 +39,20 @@ public class ProductServiceImpl216 implements IProductService216 {
 		return ipd.queryByID(p);
 	}
 
+
 	@Override
-	public List<Product216> queryByName(Product216 p) throws SQLException {
-		return ipd.queryByName(p);
+	public List<Product216> queryByName(Product216 p, int currentPage, int pageSize) throws SQLException {
+		return ipd.queryByName(p, currentPage, pageSize);
+	}
+
+	@Override
+	public int findTotalNum() throws SQLException {
+		return ipd.findTotalNum();
+	}
+
+	@Override
+	public List<Product216> findByPage(int currentPage, int pageSize) throws SQLException {
+		return ipd.findByPage(currentPage, pageSize);
 	}
 
 }

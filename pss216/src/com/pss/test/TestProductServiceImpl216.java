@@ -28,7 +28,7 @@ public class TestProductServiceImpl216 {
 //		System.out.println(product);
 		
 		//根据名称模糊查询
-		List<Product216> list1 = ips.queryByName(new Product216(0,"米",0,0,1));
+		List<Product216> list1 = ips.queryByName(new Product216(0,"米",0,0,1),1,10);
 		for(Product216 p:list1) {
 			System.out.println(p);
 		}
